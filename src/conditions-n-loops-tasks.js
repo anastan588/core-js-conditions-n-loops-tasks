@@ -21,8 +21,11 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  if (number < 0) {
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -38,8 +41,17 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let result = 0;
+  if (a > b) {
+    result = a;
+  } else {
+    result = b;
+  }
+  if (result < c) {
+    result = c;
+  }
+  return result;
 }
 
 /**
@@ -153,8 +165,19 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let index = -1;
+  const arrayStr = [];
+  for (let i = 0; i < str.length; i += 1) {
+    arrayStr[i] = str[i];
+  }
+  for (let i = 0; i < arrayStr.length; i += 1) {
+    if (arrayStr[i] === letter) {
+      index = i;
+      return index;
+    }
+  }
+  return index;
 }
 
 /**
