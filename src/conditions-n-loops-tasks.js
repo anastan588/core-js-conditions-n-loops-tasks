@@ -94,8 +94,16 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  let isosceles = false;
+  if (a === b && a + b >= c && c !== 0) {
+    isosceles = true;
+  } else if (a === c && a + c >= b && b !== 0) {
+    isosceles = true;
+  } else if (b === c && b + c >= c && c !== 0) {
+    isosceles = true;
+  }
+  return isosceles;
 }
 
 /**
@@ -112,8 +120,41 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNumerals = {
+    1: 'I',
+    4: 'IV',
+    5: 'V',
+    9: 'IX',
+    10: 'X',
+  };
+  let result = '';
+  let decimals = 0;
+  if (num > 10) {
+    decimals = Math.floor(num / 10);
+    for (let i = 1; i <= decimals; i += 1) {
+      result += romanNumerals[10];
+    }
+  }
+  if (num - decimals * 10 < 4) {
+    for (let i = 1; i <= num - decimals * 10; i += 1) {
+      result += romanNumerals[1];
+    }
+  } else if (num - decimals * 10 === 4) {
+    result += romanNumerals[4];
+  } else if (num - decimals * 10 === 5) {
+    result += romanNumerals[5];
+  } else if (num - decimals * 10 > 5 && num - decimals * 10 < 9) {
+    result += romanNumerals[5];
+    for (let i = 1; i <= num - decimals * 10 - 5; i += 1) {
+      result += romanNumerals[1];
+    }
+  } else if (num - decimals * 10 === 9) {
+    result += romanNumerals[9];
+  } else if (num - decimals * 10 === 10) {
+    result += romanNumerals[10];
+  }
+  return result;
 }
 
 /**
