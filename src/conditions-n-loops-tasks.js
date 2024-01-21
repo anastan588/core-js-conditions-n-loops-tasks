@@ -492,8 +492,44 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+
+function shuffleChar(str, iterations) {
+  function shuffleCharOneIteration(stringForIteration) {
+    let leftStr = '';
+    let rightStr = '';
+    for (let i = 0; i < stringForIteration.length; i += 1) {
+      if (i % 2 === 0) {
+        leftStr += stringForIteration[i];
+      } else {
+        rightStr += stringForIteration[i];
+      }
+    }
+    const resultStringIter = leftStr + rightStr;
+    return resultStringIter;
+  }
+  let countOfOneLoopIterations = 0;
+  let repeatLoop = false;
+  function shuffleCharRecursive(inputString, iters) {
+    if (iters === 0) {
+      return inputString;
+    }
+    let counter = iters;
+    counter -= 1;
+    const resultString = shuffleCharOneIteration(inputString);
+    countOfOneLoopIterations += 1;
+    if (resultString === str) {
+      repeatLoop = true;
+      return resultString;
+    }
+    return shuffleCharRecursive(resultString, counter);
+  }
+  let result = shuffleCharRecursive(str, iterations);
+  if (repeatLoop === true) {
+    for (let i = 0; i < iterations % countOfOneLoopIterations; i += 1) {
+      result = shuffleCharOneIteration(result);
+    }
+  }
+  return result;
 }
 
 /**
