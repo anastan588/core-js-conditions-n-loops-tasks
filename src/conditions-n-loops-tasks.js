@@ -549,8 +549,46 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const numberStringArray = [...`${number}`];
+  const numberArray = numberStringArray.map((item) => Number(item));
+  let returnPosition = 0;
+  let minNumber = 0;
+  for (let i = numberArray.length - 2; i >= 0; i -= 1) {
+    if (numberArray[i + 1] > numberArray[i]) {
+      const temp = numberArray[i];
+      minNumber = temp;
+      returnPosition = i;
+      numberArray[i] = numberArray[i + 1];
+      numberArray[i + 1] = temp;
+      break;
+    }
+  }
+  if (returnPosition === 0) {
+    return number;
+  }
+  const arrayforSortArterMin = [];
+  const arrayforSortBeforeMin = [];
+  for (let i = 0; i <= returnPosition - 1; i += 1) {
+    arrayforSortBeforeMin.push(numberArray[i]);
+  }
+  for (let i = returnPosition + 1; i <= numberArray.length - 1; i += 1) {
+    arrayforSortArterMin.push(numberArray[i]);
+  }
+  const arrayforSortArterMinSort = arrayforSortArterMin.sort((a, b) => a - b);
+  for (let i = arrayforSortArterMinSort.length - 1; i >= 0; i -= 1) {
+    if (
+      arrayforSortArterMinSort[i] < numberArray[returnPosition] &&
+      arrayforSortArterMinSort[i] > minNumber
+    ) {
+      const temp = arrayforSortArterMinSort[i];
+      arrayforSortArterMinSort[i] = numberArray[returnPosition];
+      numberArray[returnPosition] = temp;
+    }
+  }
+  const preresult = [...arrayforSortBeforeMin, numberArray[returnPosition]];
+  const result = Number([...preresult, ...arrayforSortArterMinSort].join(''));
+  return result;
 }
 
 module.exports = {
